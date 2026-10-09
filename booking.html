@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="R-Tech Pure Water - Pure and safe drinking water solutions">
+<title>R-Tech Pure Water</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>BOOK A SERVICE</span>
+
+            <h2>
+                Schedule Your
+                <span>RO Service</span>
+            </h2>
+
+            <p>
+                Fill in your details and our service team
+                will contact you.
+            </p>
+
+        </div>
+
+
+        <form class="booking-form"
+              id="bookingForm"
+              novalidate>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        placeholder="Enter your name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        placeholder="Enter phone number">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="Enter email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="service">
+                        Service
+                    </label>
+
+                    <select id="service"
+                            name="service"
+                            required>
+
+                        <option value="">
+                            Select Service
+                        </option>
+
+                        <option value="RO Installation">
+                            RO Installation
+                        </option>
+
+                        <option value="RO Repair">
+                            RO Repair
+                        </option>
+
+                        <option value="Filter Replacement">
+                            Filter Replacement
+                        </option>
+
+                        <option value="Annual Maintenance">
+                            Annual Maintenance
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="date">
+                        Preferred Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="booking_date"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        required
+                        placeholder="Enter address">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="message">
+                    Additional Message
+                </label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    placeholder="Describe your RO problem"></textarea>
+
+            </div>
+
+
+            <button type="submit" class="btn primary-btn">
+                Submit Booking
+                <i class="ri-send-plane-line"></i>
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<div id="site-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/supabase-app.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/script.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>
