@@ -103,6 +103,10 @@ select {
 .navbar a:hover {
     color: var(--primary);
 }
+.navbar a.active, .navbar a[aria-current="page"] {
+    color: var(--primary);
+    font-weight: 600;
+}
 
 .nav-btn {
     padding: 11px 18px;
@@ -600,3 +604,4 @@ select {
     background: #1ebe5d;
     transform: translateY(-2px);
 }
+
