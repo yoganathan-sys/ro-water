@@ -1,3 +1,3 @@
-window.SUPABASE_URL="YOUR_SUPABASE_PROJECT_URL";
-window.SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY";
-window.ADMIN_LOGIN_EMAIL="YOUR_ADMIN_AUTH_EMAIL";
+window.SUPABASE_URL="https://rqegztttwhmhpsnehtev.supabase.co";
+window.SUPABASE_ANON_KEY="sb_publishable_RIlTglQNkoHcAFqF3U-RSw_qqCMCqK9";
+window.ADMIN_LOGIN_EMAIL="yoganathan541541@gmail.com";
