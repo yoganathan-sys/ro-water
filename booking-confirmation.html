@@ -322,7 +322,7 @@
                     <i class="ri-checkbox-circle-fill" style="color:#10b981; font-size:26px;"></i> Booking Dispatched Automatically to Owner
                 </h3>
                 <p style="color: #1f2937; margin-bottom: 16px;">
-                    Our service technician at <strong>+91 9025281363</strong> has automatically received your booking details. You can save your booking slip to your WhatsApp or call us directly:
+                    Our service technician at <strong>+91 80566 39518</strong> has automatically received your booking details. You can save your booking slip to your WhatsApp or call us directly:
                 </p>
                 
                 <div class="btn-group-confirmation">
@@ -330,9 +330,9 @@
                         <i class="ri-whatsapp-line"></i> Save Details to My WhatsApp
                     </a>
                     <a href="#" id="btnWhatsAppOwner" class="btn-secondary-action" target="_blank" rel="noopener noreferrer" style="border-color:#25D366; color:#065f46;">
-                        <i class="ri-customer-service-2-line"></i> Chat with Support (9025281363)
+                        <i class="ri-customer-service-2-line"></i> Chat with Support (8056639518)
                     </a>
-                    <a href="tel:+919025281363" class="btn-call-direct">
+                    <a href="tel:+918056639518" class="btn-call-direct">
                         <i class="ri-phone-line"></i> Call Technician
                     </a>
                 </div>
@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (_) {}
     }
 
-    const OWNER_PHONE = "9025281363";
+    const OWNER_PHONE = "8056639518";
 
     if (!booking) {
         // Fallback demo or empty state
@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
 *Service Address:* ${booking.address || ''}
 
 *Service Center:* R-Tech Pure Water, Bus Stop Chinnakadai, Tiruvannamalai Road, Tirupathur
-*Technician Support:* +91 9025281363`;
+*Technician Support:* +91 80566 39518`;
 
     // Opens WhatsApp share so customer can save or forward to their chats
     const btnCust = document.getElementById("btnWhatsAppCustomer");
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnCust.href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(customerShareText);
     }
 
-    // Direct support chat with owner (9025281363)
+    // Direct support chat with owner (8056639518)
     const btnOwner = document.getElementById("btnWhatsAppOwner");
     if (btnOwner) {
         btnOwner.href = "https://wa.me/91" + OWNER_PHONE + "?text=" + encodeURIComponent(`Hello R-Tech Pure Water, I would like to inquire about my booking ${ref}.`);

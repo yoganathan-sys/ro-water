@@ -94,7 +94,7 @@ async function loadBookings() {
             rowsEl.innerHTML = r.data.map(v => {
                 const cleanPhone = (v.phone || '').replace(/\D/g, '');
                 const targetPhone = cleanPhone.length === 10 ? ('91' + cleanPhone) : cleanPhone;
-                const waMessage = encodeURIComponent(`Hello ${v.name}! This is R-Tech Pure Water (+91 9025281363). Your booking (#RTW-${v.id}) for ${v.service} on ${v.booking_date} is confirmed. Our technician will visit your location: ${v.address}. Thank you!`);
+                const waMessage = encodeURIComponent(`Hello ${v.name}! This is R-Tech Pure Water (+91 80566 39518). Your booking (#RTW-${v.id}) for ${v.service} on ${v.booking_date} is confirmed. Our technician will visit your location: ${v.address}. Thank you!`);
                 const waLink = `https://wa.me/${targetPhone}?text=${waMessage}`;
                 const callLink = `tel:${v.phone}`;
                 

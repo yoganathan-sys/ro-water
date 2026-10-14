@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Urgent Service or Booking Inquiries
+    url: https://wa.me/918056639518
+    about: Connect directly with R-Tech Pure Water support via WhatsApp.
+  - name: Security Vulnerability Reports
+    url: mailto:yoganathan541541@gmail.com
+    about: Privately report sensitive security issues according to SECURITY.md.

@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Non-fatal: we still proceed to save session and trigger notification
         }
 
-        // 3. Trigger SMS notification to Owner (9025281363)
+        // 3. Trigger SMS notification to Owner (8056639518)
         try {
             await fetch("/api/send-order-sms", {
                 method: "POST",

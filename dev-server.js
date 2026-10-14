@@ -157,6 +157,6 @@ server.listen(PORT, () => {
     console.log(`Local Server:   http://localhost:${PORT}`);
     console.log(`Admin Portal:   http://localhost:${PORT}/admin/login.html`);
     console.log(`API Endpoint:   http://localhost:${PORT}/api/send-order-sms`);
-    console.log(`Owner Target:   +91 90252 81363`);
+    console.log(`Owner Target:   +91 80566 39518`);
     console.log(`==================================================\n`);
 });

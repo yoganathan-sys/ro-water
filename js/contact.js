@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const waFollowup = document.getElementById("contactWaFollowup");
     const btnSendAnother = document.getElementById("btnSendAnother");
 
-    const OWNER_PHONE = "9025281363";
+    const OWNER_PHONE = "8056639518";
 
     function showAlert(msg, isError = true) {
         if (!alertBox) {
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.warn("Database notice:", dbErr);
         }
 
-        // 2. Dispatch SMS notification to Owner (9025281363)
+        // 2. Dispatch SMS notification to Owner (8056639518)
         try {
             await fetch("/api/send-order-sms", {
                 method: "POST",
@@ -143,7 +143,7 @@ Message: ${message}`;
             successCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
         } else {
             if (window.showToast) {
-                window.showToast("Thank you! Your message has been sent to +91 9025281363.", "success");
+                window.showToast("Thank you! Your message has been sent to +91 80566 39518.", "success");
             }
             form.reset();
         }

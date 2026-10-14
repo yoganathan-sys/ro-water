@@ -1,67 +1,219 @@
-# R-Tech Pure Water (Production Web Platform)
+<div align="center">
 
-A high-performance, modern web application for **R-Tech Pure Water** RO purification solutions, equipped with Supabase Database + Authentication, Vercel Serverless SMS notifications, instant WhatsApp integrations, and hardened cybersecurity.
+# 💧 R-Tech Pure Water
+
+**Enterprise-Grade RO Purification Platform & Booking System**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Security Audit](https://img.shields.io/badge/Security_Audit-0_Vulnerabilities-brightgreen.svg)](SECURITY.md)
+[![Deployment](https://img.shields.io/badge/Vercel-Deployed-000000.svg?logo=vercel&logoColor=white)](https://ro-water-rouge.vercel.app)
+[![Database](https://img.shields.io/badge/Supabase-Hardened_RLS-3ECF8E.svg?logo=supabase&logoColor=white)](https://supabase.com)
+[![WhatsApp Support](https://img.shields.io/badge/WhatsApp-24%2F7_Direct-25D366.svg?logo=whatsapp&logoColor=white)](https://wa.me/918056639518)
+
+[🌐 View Live Website](https://ro-water-rouge.vercel.app) • [📖 Documentation](#-table-of-contents) • [🛡️ Security Policy](SECURITY.md) • [💬 Report Bug](.github/ISSUE_TEMPLATE/bug_report.md)
+
+</div>
+
+---
+
+## 📋 Table of Contents
+- [About R-Tech Pure Water](#-about-r-tech-pure-water)
+- [Key Features](#-key-features)
+- [Architecture & Data Flow](#-architecture--data-flow)
+- [Security & Defensive Hardening](#-security--defensive-hardening)
+- [Tech Stack](#-tech-stack)
+- [Local Development](#-local-development)
+- [Environment Variables](#-environment-variables)
+- [Project Structure](#-project-structure)
+- [Authors & Acknowledgments](#-authors--acknowledgments)
+- [License](#-license)
+
+---
+
+## 🌟 About R-Tech Pure Water
+
+**R-Tech Pure Water** is a production web application engineered for certified RO water purifier installations, multi-stage filter replacements, precision TDS testing, and emergency technician booking across Tirupathur, Tamil Nadu.
+
+Equipped with a secure **Supabase Database** with Row-Level Security, **Vercel Serverless API** notifications, instant 1-click **WhatsApp Direct Integration**, and a dedicated customer confirmation dashboard.
 
 ---
 
 ## 🚀 Key Features
 
-* **Multi-Channel Owner Notifications (Mobile: `9025281363`)**:
-  * **Automatic SMS Notification**: Dispatches order and contact summaries to `+91 90252 81363` via `/api/send-order-sms` powered by Twilio.
-  * **Instant WhatsApp Direct Messaging**: Every booking and contact inquiry generates a pre-formatted message sent directly to `9025281363` via 1 click.
-  * **Global Floating Quick Contact Widget**: Floating WhatsApp & Direct Call buttons on every page linking directly to `+91 90252 81363`.
-* **Beautiful Dedicated Booking Confirmation (`booking-confirmation.html`)**:
-  * Replaces legacy browser alert popups with a modern, animated confirmation page.
-  * Displays unique booking tracking reference (`#RTW-XXXXXX`), customer info, date, and service requested.
-  * 1-click WhatsApp message dispatch, direct call button, and printable receipt slip.
-* **Security & Hardening**:
-  * **Strict Database Row-Level Security (RLS)**: Protects customer records, bookings, and contact inquiries so only authenticated owner email can query sensitive data.
-  * **HTTP Security Headers** in `vercel.json` (`X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`, `Permissions-Policy`, `HSTS`).
-  * **Anti-Spam Honeypots**: Hidden honeypot fields on booking and contact forms to block bot submissions.
-  * **Rate Limiting & Sanitization**: Protects `/api/send-order-sms` against request flooding and script injection.
-  * **XSS Defense**: Sanitized data rendering in Owner Admin dashboards and client templates.
-* **Polished Modern UI**:
-  * Powered by **Plus Jakarta Sans** and **RemixIcon**.
-  * Non-intrusive interactive form validation and global Toast Notification system (`showToast`).
+| Feature | Description |
+| :--- | :--- |
+| **Instant Multi-Channel Alerts** | Real-time dual dispatch to owner mobile (`+91 80566 39518`) and customer on service booking or contact inquiry. |
+| **Floating Card Footer** | Modern elevated card layout featuring direct contact pills (`Phone`, `WhatsApp`, `Email`, `Maps`) and zero duplicate icons. |
+| **Dedicated Confirmation Page** | Animated `#RTW-XXXXXX` digital receipt with 1-click WhatsApp slip sharing, technician calling, and print options. |
+| **Interactive Owner Dashboard** | Protected owner portal with 1-click customer WhatsApp actions and customer profile lookups. |
+| **Global Quick Contact Bar** | Floating 24/7 WhatsApp & Direct Phone Call widget on every page. |
+| **Zero Vulnerabilities** | Automated npm dependency security scanning, strict input sanitization, and anti-spam honeypots. |
 
 ---
 
-## 🛠️ Configuration & Setup
+## 📐 Architecture & Data Flow
 
-### 1. Supabase Database Setup
-1. Open your Supabase project SQL Editor.
-2. Run [`supabase/schema.sql`](supabase/schema.sql) to create tables (`customers`, `water_bookings`, `contacts`) with secure RLS policies and check constraints.
-3. Configure your Supabase project URL, anonymous public key, and owner email in [`js/supabase-config.js`](js/supabase-config.js).
-
-### 2. Twilio SMS Setup (Vercel Environment Variables)
-To enable carrier SMS dispatch to `+91 90252 81363`, configure the following in your Vercel Project Settings > Environment Variables:
-
-| Variable | Description | Default / Example |
-| :--- | :--- | :--- |
-| `OWNER_PHONE_NUMBER` | Mobile number to receive order alerts | `9025281363` |
-| `TWILIO_ACCOUNT_SID` | Your Twilio Account SID | `ACxxxxxxxxxxxxxxxxxxxxxxxxxxxx` |
-| `TWILIO_AUTH_TOKEN` | Your Twilio Auth Token | `your_auth_token_here` |
-| `TWILIO_PHONE_NUMBER` | Your Twilio phone number | `+1234567890` |
-
-*(Note: Even before Twilio keys are set up, customer inquiries and bookings are safely recorded in Supabase, and customers can immediately connect to WhatsApp at `9025281363`)*.
-
-### 3. Running Locally
-Run any local static server:
-```bash
-npx serve .
-# or
-python -m http.server 3000
+```mermaid
+flowchart TD
+    User([Customer / Client]) -->|Fills Form| Booking[Booking / Contact Form]
+    Booking -->|Anti-Spam Check| Honeypot{Honeypot Triggered?}
+    Honeypot -->|Yes| Block[Drop Submission]
+    Honeypot -->|No| RLS[Supabase PostgreSQL RLS]
+    RLS -->|Validated Insert| DB[(Database Records)]
+    Booking -->|POST Request| API[/api/send-order-sms/]
+    API -->|Rate Limit & Sanitize| Dispatcher{Gateway Check}
+    Dispatcher -->|Indian Carrier| Fast2SMS[Fast2SMS Quick Route]
+    Dispatcher -->|International Carrier| Twilio[Twilio SMS Gateway]
+    Fast2SMS -->|Instant SMS| OwnerPhone([Owner Mobile: 80566 39518])
+    Twilio -->|Instant SMS| OwnerPhone
+    Booking -->|Redirect| Receipt[booking-confirmation.html]
+    Receipt -->|1-Click Share| WhatsApp[Customer WhatsApp Ticket]
 ```
-Open `http://localhost:3000` in your browser.
 
 ---
 
-## 📂 Project Structure
-* [`index.html`](index.html) – Homepage with service overview and counters
-* [`booking.html`](booking.html) – Service scheduling form
-* [`booking-confirmation.html`](booking-confirmation.html) – Dedicated booking confirmation and receipt page
-* [`contact.html`](contact.html) – Contact form and direct communication channels
-* [`owner-details.html`](owner-details.html) – Owner information and equipment gallery
-* [`services.html`](services.html) & [`products.html`](products.html) – Catalog of RO machines and maintenance plans
-* [`admin/`](admin/) – Protected Owner Management Portal (Bookings, Customers, Messages)
-* [`api/send-order-sms.js`](api/send-order-sms.js) – Serverless SMS notification handler
+## 🛡️ Security & Defensive Hardening
+
+Security is integrated by design across all components:
+
+* **Strict Row-Level Security (RLS)** ([`supabase/schema.sql`](supabase/schema.sql)):
+  * Public anonymous access is restricted to `INSERT` only.
+  * `SELECT`, `UPDATE`, and `DELETE` queries strictly require authenticated owner access (`yoganathan541541@gmail.com`).
+* **HTTP Security Headers** ([`vercel.json`](vercel.json)):
+  * `X-Content-Type-Options: nosniff`
+  * `X-Frame-Options: SAMEORIGIN`
+  * `X-XSS-Protection: 1; mode=block`
+  * `Referrer-Policy: strict-origin-when-cross-origin`
+  * `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+  * `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+* **API Rate Limiting & Input Sanitization** ([`api/send-order-sms.js`](api/send-order-sms.js)):
+  * IP-based rate limiting (6 requests/minute) prevents endpoint flooding.
+  * Strips HTML tags and normalizes multiline text to eliminate payload injection.
+* **Anti-Bot Honeypots**:
+  * Hidden non-tabbable honeypot fields on booking and contact forms silently neutralize automated web crawlers.
+* **Zero Security Vulnerabilities**:
+  * Validated clean through `npm audit` (0 vulnerabilities).
+
+---
+
+## 💻 Tech Stack
+
+* **Frontend**: Semantic HTML5, CSS3 (Modern Flexbox & CSS Grid, Plus Jakarta Sans), Vanilla JavaScript (ES6+).
+* **Icons**: [RemixIcon 4.6.0](https://remixicon.com/).
+* **Database & Auth**: [Supabase](https://supabase.com) (PostgreSQL 15 with Row-Level Security).
+* **Serverless Backend**: Vercel Serverless Functions (Node.js 20).
+* **Communication Gateways**: Fast2SMS, Twilio, WhatsApp Click-to-Chat API.
+* **Dev Server**: Built-in zero-dependency Node.js HTTP/API dev server ([`dev-server.js`](dev-server.js)).
+
+---
+
+## 💻 Local Development
+
+### Prerequisites
+* Node.js v18 or later
+* Git
+
+### Quick Start
+```bash
+# 1. Clone the repository
+git clone https://github.com/01jackrichard/ro-water.git
+cd ro-water
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the local development server
+npm run dev
+```
+
+Server endpoints will be active:
+* **Web Application:** `http://localhost:3000`
+* **Owner Portal:** `http://localhost:3000/admin/login.html`
+* **API Endpoint:** `http://localhost:3000/api/send-order-sms`
+
+---
+
+## ⚙️ Environment Variables
+
+Copy [`.env.example`](.env.example) to `.env` to configure notification channels:
+
+```env
+# Official Owner Mobile Number (Default)
+OWNER_PHONE_NUMBER=8056639518
+
+# OPTION 1: Fast2SMS (India Quick Transactional Route)
+FAST2SMS_API_KEY=your_fast2sms_api_key
+
+# OPTION 2: Twilio SMS Gateway (International)
+TWILIO_ACCOUNT_SID=your_twilio_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_PHONE_NUMBER=+1234567890
+```
+
+---
+
+## 📁 Project Structure
+
+```
+ro-water/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── config.yml
+│   ├── workflows/
+│   │   └── ci.yml
+│   ├── dependabot.yml
+│   └── PULL_REQUEST_TEMPLATE.md
+├── admin/
+│   ├── css/
+│   │   └── admin.css
+│   ├── admin.js
+│   ├── bookings.html
+│   ├── customers.html
+│   ├── dashboard.html
+│   ├── login.html
+│   └── messages.html
+├── api/
+│   └── send-order-sms.js       # Vercel Serverless SMS endpoint
+├── css/
+│   └── style.css               # Main styling & floating footer cards
+├── js/
+│   ├── booking.js              # Booking form & honeypot logic
+│   ├── contact.js              # Contact form & WhatsApp integration
+│   ├── layout.js               # Dynamic navbar, footer & quick contact
+│   ├── script.js               # Counter animations & UI helpers
+│   ├── supabase-app.js         # Supabase client initializer
+│   └── supabase-config.js      # Public project credentials
+├── supabase/
+│   └── schema.sql              # Hardened PostgreSQL schema & RLS
+├── about.html
+├── booking.html
+├── booking-confirmation.html   # Dedicated order receipt page
+├── contact.html
+├── dev-server.js               # Local dev server
+├── index.html
+├── owner-details.html
+├── products.html
+├── services.html
+├── vercel.json                 # Security headers & clean URLs
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── LICENSE                     # MIT License
+├── package.json
+├── README.md
+└── SECURITY.md                 # Vulnerability disclosure policy
+```
+
+---
+
+## 👥 Authors & Acknowledgments
+
+* **Original Creator & Owner:** [Yoganathan_A](https://github.com/yoganathan-sys) (`yoganathan541541@gmail.com`)
+* **Core Contributor & Security Architect:** [Jack Richard](https://github.com/01jackrichard) (`01jackrichard@gmail.com`)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for complete details.

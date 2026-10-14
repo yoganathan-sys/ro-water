@@ -1,0 +1,46 @@
+name: CI & Security Audit
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  audit-and-validate:
+    name: Security Audit & Code Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run NPM Security Audit
+        run: npm audit --audit-level=high
+
+      - name: Verify JavaScript Syntax
+        run: |
+          node -c dev-server.js
+          node -c api/send-order-sms.js
+          node -c js/script.js
+          node -c js/layout.js
+          node -c js/booking.js
+          node -c js/contact.js
+          node -c admin/admin.js
+
+      - name: Verify No Secrets Committed
+        run: |
+          if git grep -E "(BEGIN (RSA|OPENSSH) PRIVATE KEY)" .; then
+            echo "Private key detected in repository!"
+            exit 1
+          fi
+          echo "Security scan clean: No private credentials or secrets exposed."

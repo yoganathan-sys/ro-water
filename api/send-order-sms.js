@@ -1,5 +1,5 @@
 // Vercel Serverless Function: /api/send-order-sms
-// Handles secure SMS dispatch to owner mobile number (9025281363)
+// Handles secure SMS dispatch to owner mobile number (8056639518)
 const twilio = require('twilio');
 
 // In-memory rate limiting map (IP-based, resets on cold start)
@@ -62,8 +62,8 @@ module.exports = async (req, res) => {
         const authToken = (process.env.TWILIO_AUTH_TOKEN || '').trim();
         const fromNumber = (process.env.TWILIO_PHONE_NUMBER || '').trim();
         
-        // Owner phone defaults to 9025281363 (formatted as +919025281363 for Indian carriers)
-        let ownerNumber = (process.env.OWNER_PHONE_NUMBER || '9025281363').trim();
+        // Owner phone defaults to 8056639518 (formatted as +918056639518 for Indian carriers)
+        let ownerNumber = (process.env.OWNER_PHONE_NUMBER || '8056639518').trim();
         if (!ownerNumber.startsWith('+')) {
             const cleanDigits = ownerNumber.replace(/\D/g, '');
             if (cleanDigits.length === 10) {
@@ -139,8 +139,8 @@ Please check the admin dashboard for full details.`;
         const customerDigits = customerClean.length >= 10 ? customerClean.slice(-10) : '';
 
         const customerSmsMessage = notificationType === 'booking'
-            ? `Dear ${body.name || 'Customer'}, your RO service booking (${orderRef}) with R-Tech Pure Water is confirmed for ${bookingDate}. Contact/WhatsApp: 9025281363.`
-            : `Dear ${body.name || 'Customer'}, we have received your message. Our team will contact you shortly. R-Tech Pure Water (+91 9025281363).`;
+            ? `Dear ${body.name || 'Customer'}, your RO service booking (${orderRef}) with R-Tech Pure Water is confirmed for ${bookingDate}. Contact/WhatsApp: 8056639518.`
+            : `Dear ${body.name || 'Customer'}, we have received your message. Our team will contact you shortly. R-Tech Pure Water (+91 80566 39518).`;
 
         // 1. Check Indian SMS Gateway (Fast2SMS - instant free SMS to Indian numbers without DLT approval)
         const fast2smsKey = (process.env.FAST2SMS_API_KEY || '').trim();
