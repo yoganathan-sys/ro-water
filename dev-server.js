@@ -32,6 +32,7 @@ const MIME_TYPES = {
     '.css': 'text/css; charset=utf-8',
     '.js': 'application/javascript; charset=utf-8',
     '.json': 'application/json; charset=utf-8',
+    '.webmanifest': 'application/manifest+json; charset=utf-8',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
@@ -133,10 +134,16 @@ const server = http.createServer((req, res) => {
     }
 
     const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const contentType = (pathname === '/manifest.json') ? 'application/manifest+json; charset=utf-8' : (MIME_TYPES[ext] || 'application/octet-stream');
+
+    const headers = { 'Content-Type': contentType };
+    if (pathname === '/sw.js') {
+        headers['Service-Worker-Allowed'] = '/';
+        headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    }
 
     // Stream file response
-    res.writeHead(200, { 'Content-Type': contentType });
+    res.writeHead(200, headers);
     fs.createReadStream(filePath).pipe(res);
 });
 

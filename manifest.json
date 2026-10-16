@@ -1,0 +1,99 @@
+{
+  "id": "rtech-purewater-app",
+  "name": "R-Tech Pure Water",
+  "short_name": "R-Tech RO",
+  "description": "Certified RO water purification solutions, technician booking, filter replacement, and express maintenance service in Tirupathur.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#087fdb",
+  "categories": ["business", "utilities", "lifestyle"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book RO Service",
+      "short_name": "Book Service",
+      "description": "Schedule water purifier repair or maintenance",
+      "url": "booking.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Call Technician",
+      "short_name": "Call Us",
+      "description": "Direct phone call to technician (+91 80566 39518)",
+      "url": "tel:+918056639518",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "WhatsApp Support",
+      "short_name": "WhatsApp",
+      "description": "24/7 direct WhatsApp support chat",
+      "url": "https://wa.me/918056639518",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Contact & Location",
+      "short_name": "Contact",
+      "description": "Store address and contact form",
+      "url": "contact.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

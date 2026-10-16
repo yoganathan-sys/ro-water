@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00b8d9"/>
+      <stop offset="50%" stop-color="#087fdb"/>
+      <stop offset="100%" stop-color="#0565b0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#071a2b" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <!-- Background Circle with Water Gradient -->
+  <circle cx="256" cy="256" r="236" fill="url(#bgGrad)" filter="url(#shadow)"/>
+  <!-- Pure Water Droplet Symbol -->
+  <path d="M256 116 C256 116 166 230 166 312 C166 362 206 402 256 402 C306 402 346 362 346 312 C346 230 256 116 256 116 Z" fill="#ffffff"/>
+  <!-- Inner Highlight Reflection -->
+  <path d="M216 280 C206 295 204 316 210 334 C212 338 206 342 202 338 C194 318 196 292 208 274 C212 270 218 274 216 280 Z" fill="rgba(8, 127, 219, 0.35)"/>
+</svg>
