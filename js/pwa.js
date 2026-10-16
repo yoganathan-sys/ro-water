@@ -76,19 +76,19 @@
 
     const headerBtn = document.getElementById('pwaInstallBtn');
     if (headerBtn) {
-      headerBtn.style.display = visible ? 'inline-flex' : 'none';
+      headerBtn.classList.toggle('pwa-visible', visible);
       if (visible) headerBtn.onclick = triggerInstall;
     }
 
     const navMobileBtn = document.getElementById('pwaMobileNavInstall');
     if (navMobileBtn) {
-      navMobileBtn.style.display = visible ? 'inline-flex' : 'none';
+      navMobileBtn.classList.toggle('pwa-visible', visible);
       if (visible) navMobileBtn.onclick = triggerInstall;
     }
 
     const floatBtn = document.getElementById('floatPwaInstall');
     if (floatBtn) {
-      floatBtn.style.display = visible ? 'flex' : 'none';
+      floatBtn.classList.toggle('pwa-visible', visible);
       if (visible) floatBtn.onclick = triggerInstall;
     }
   }

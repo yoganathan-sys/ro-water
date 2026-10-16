@@ -8,43 +8,51 @@
     const OWNER_PHONE_TEL = '+918056639518';
     const WHATSAPP_URL = 'https://wa.me/918056639518?text=' + encodeURIComponent('Hello R-Tech Pure Water! I would like to inquire about your RO water purifier services.');
 
-    // Top Navigation Header
+    // Top Navigation Header: 3-Column Balanced Architecture (Left: Logo, Center: Nav Island, Right: CTAs)
     const header = `
     <header class="header">
-        <div class="container nav-container">
+        <div class="nav-container">
+            <!-- 1. LEFT: Brand Identity -->
             <a href="index.html" class="logo" title="R-Tech Pure Water Home">
-                <span class="logo-icon"><i class="ri-drop-fill"></i></span>
-                R-Tech Pure <span>Water</span>
+                <span class="logo-icon">
+                    <i class="ri-drop-fill"></i>
+                </span>
+                <span class="logo-text">R-Tech Pure <span>Water</span></span>
             </a>
-            <div class="nav-right">
-                <nav class="navbar" id="navbar">
-                    <a href="index.html"${active('index.html')}>Home</a>
-                    <a href="about.html"${active('about.html')}>About</a>
-                    <a href="services.html"${active('services.html')}>Services</a>
-                    <a href="products.html"${active('products.html')}>Products</a>
-                    <a href="contact.html"${active('contact.html')}>Contact</a>
-                    <a href="owner-details.html"${active('owner-details.html')}>Owner Details</a>
+
+            <!-- 2. CENTER: Navigation Links Floating Island -->
+            <nav class="navbar" id="navbar" aria-label="Main Navigation">
+                <div class="nav-pill-group">
+                    <a href="index.html"${active('index.html')}><span>Home</span></a>
+                    <a href="about.html"${active('about.html')}><span>About</span></a>
+                    <a href="services.html"${active('services.html')}><span>Services</span></a>
+                    <a href="products.html"${active('products.html')}><span>Products</span></a>
+                    <a href="contact.html"${active('contact.html')}><span>Contact</span></a>
+                    <a href="owner-details.html"${active('owner-details.html')}><span>Owner Details</span></a>
+                </div>
+                <!-- Mobile Drawer Action Buttons (Visible only on mobile drawer) -->
+                <div class="nav-drawer-actions">
                     <a href="booking.html" class="nav-btn nav-btn-mobile"${active('booking.html')}>
                         <i class="ri-calendar-check-line"></i> Book Service
                     </a>
-                    <button id="pwaMobileNavInstall" class="nav-install-btn-mobile" type="button" style="display:none;" aria-label="Install App">
-                        <i class="ri-download-cloud-2-line"></i> Install App
-                    </button>
-                </nav>
-                <div class="header-contact-quick">
-                    <button id="pwaInstallBtn" class="nav-install-btn" type="button" title="Install R-Tech App" style="display:none;" aria-label="Install App">
-                        <i class="ri-download-cloud-2-line"></i>
-                        <span>Install App</span>
-                    </button>
-                    <a href="booking.html" class="nav-btn nav-btn-desktop"${active('booking.html')}>
-                        <i class="ri-calendar-check-line"></i> Book Service
-                    </a>
-                    <a href="tel:${OWNER_PHONE_TEL}" class="nav-phone-link" title="Call Owner Directly">
-                        <i class="ri-phone-fill"></i>
-                        <span>${OWNER_PHONE_DISPLAY}</span>
+                    <a href="tel:${OWNER_PHONE_TEL}" class="nav-phone-mobile">
+                        <i class="ri-phone-fill"></i> Call: ${OWNER_PHONE_DISPLAY}
                     </a>
                 </div>
-                <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation menu">
+            </nav>
+
+            <!-- 3. RIGHT: Call-To-Action Cluster -->
+            <div class="nav-actions">
+                <a href="booking.html" class="nav-btn nav-btn-desktop"${active('booking.html')}>
+                    <i class="ri-calendar-check-line"></i>
+                    <span>Book Service</span>
+                </a>
+                <a href="tel:${OWNER_PHONE_TEL}" class="nav-phone-link" title="Call Owner Directly (${OWNER_PHONE_DISPLAY})">
+                    <i class="ri-phone-fill"></i>
+                    <span class="phone-text-desktop">${OWNER_PHONE_DISPLAY}</span>
+                    <span class="phone-text-compact">Call Us</span>
+                </a>
+                <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i class="ri-menu-line"></i>
                 </button>
             </div>
@@ -145,7 +153,7 @@
     // Floating Interactive Quick Contact Bar (WhatsApp, Direct Call & PWA Install)
     const floatingBar = `
     <aside class="floating-contact-bar" aria-label="Instant Contact Options">
-        <button id="floatPwaInstall" class="float-btn float-install" type="button" title="Install R-Tech RO App" aria-label="Install App" style="display:none;">
+        <button id="floatPwaInstall" class="float-btn float-install" type="button" title="Install R-Tech RO App" aria-label="Install App">
             <i class="ri-download-cloud-2-line"></i>
             <span class="float-tooltip">Install App</span>
         </button>
@@ -164,18 +172,56 @@
     document.getElementById('site-footer')?.insertAdjacentHTML('afterbegin', footer);
     document.body?.insertAdjacentHTML('beforeend', floatingBar);
 
-    // Mobile Hamburger Menu Toggle
+    // Mobile Hamburger Menu Toggle with Outside Click & Link Click Handlers
     const menuBtn = document.getElementById('menuBtn');
     const navbar = document.getElementById('navbar');
     if (menuBtn && navbar) {
-        menuBtn.addEventListener('click', () => {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const isOpen = navbar.classList.toggle('active');
+            menuBtn.classList.toggle('is-active', isOpen);
             menuBtn.setAttribute('aria-expanded', isOpen);
             const icon = menuBtn.querySelector('i');
             if (icon) {
                 icon.className = isOpen ? 'ri-close-line' : 'ri-menu-line';
             }
         });
+
+        // Close on clicking links inside navbar
+        navbar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                menuBtn.classList.remove('is-active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                const icon = menuBtn.querySelector('i');
+                if (icon) icon.className = 'ri-menu-line';
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbar.classList.contains('active') && !navbar.contains(e.target) && !menuBtn.contains(e.target)) {
+                navbar.classList.remove('active');
+                menuBtn.classList.remove('is-active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                const icon = menuBtn.querySelector('i');
+                if (icon) icon.className = 'ri-menu-line';
+            }
+        });
+    }
+
+    // Dynamic Sticky Header Scroll Effects
+    const headerEl = document.querySelector('.header');
+    if (headerEl) {
+        const handleScroll = () => {
+            if (window.scrollY > 15) {
+                headerEl.classList.add('header-scrolled');
+            } else {
+                headerEl.classList.remove('header-scrolled');
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
     }
 
     // Auto-bootstrap PWA controller if not already present on page
