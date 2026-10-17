@@ -81,7 +81,7 @@ document.getElementById("loginForm").onsubmit = async (e) => {
 
         if (data.user && data.user.email.toLowerCase() !== adminEmail.toLowerCase()) {
             await sb.auth.signOut();
-            throw new Error("Access restricted: not an authorized owner account.");
+            throw new Error("Unauthorized: Only the registered owner can access this dashboard.");
         }
 
         location.href = "dashboard.html";
