@@ -8,6 +8,6 @@
     "start": "node dev-server.js"
   },
   "dependencies": {
-    "twilio": "^6.1.2"
+    "twilio": "^6.2.0"
   }
 }
